@@ -1,0 +1,969 @@
+
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+/* Screen Styles */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s;
+    padding: 20px;
+}
+
+.screen.active {
+    z-index: 100;
+}
+
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Popup Style Agreement */
+.agreement-content.popup-style {
+    background: linear-gradient(145deg, #2d2d5a, #1a1a2e);
+    border-radius: 20px;
+    border: 5px solid #ff6b9d;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+.popup-header {
+    margin-bottom: 25px;
+}
+
+.popup-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.agreement-title {
+    color: #ffde00;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.message-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.agreement-message {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.warning-box {
+    background: rgba(255, 59, 48, 0.1);
+    border: 3px solid #ff3b30;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.warning-title {
+    color: #ffde00;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.warning-text {
+    color: #ff9a8b;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.agreement-buttons {
+    margin-top: 20px;
+}
+
+.pixel-button {
+    background: linear-gradient(145deg, #ff6b9d, #ff3d7f);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0 #000;
+    transition: all 0.1s;
+}
+
+.pixel-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 #000;
+}
+
+.accept-button {
+    background: linear-gradient(145deg, #ff3d7f, #ff0066);
+    font-size: 24px;
+    padding: 20px 50px;
+    border: 4px solid #000;
+    box-shadow: 0 8px 0 #990033;
+    animation: pulse-accept 2s infinite;
+    width: 100%;
+    max-width: 300px;
+}
+
+@keyframes pulse-accept {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Loading Screen */
+.loading-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 500px;
+}
+
+.pixel-heart {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.pixel-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ff6b9d;
+    text-shadow: 3px 3px 0 #000;
+}
+
+.loading-subtitle {
+    color: #a9a9ff;
+    margin-bottom: 40px;
+}
+
+.progress-container {
+    margin: 40px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: #333;
+    border: 3px solid #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b9d, #ff8e53);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.start-button {
+    font-size: 20px;
+    padding: 20px 50px;
+}
+
+/* Game Screen */
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0;
+}
+
+/* Game Header */
+.game-header {
+    background: linear-gradient(90deg, #2d2d5a, #4a4a8a);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #000;
+    flex-shrink: 0;
+    min-height: 80px;
+}
+
+.room-info, .pokemon-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.room-number, .pokemon-count, .clues-count {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.label {
+    font-size: 12px;
+    color: #a9a9ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffde00;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.separator {
+    color: #666;
+}
+
+.room-title {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* Game Area */
+.game-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Map Container */
+.map-container {
+    flex: 1;
+    position: relative;
+    background: #1a1a2e;
+    border: 3px solid #000;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.game-map {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Player */
+.player {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    z-index: 100;
+    transition: transform 0.2s ease-out;
+    pointer-events: none;
+}
+
+.player-sprite {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+/* Pokémon */
+.pokemon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: 50;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.pokemon-sprite {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+}
+
+.pokemon.hidden {
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+.pokemon.caught {
+    opacity: 0.3;
+    transform: scale(0.8);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Controls */
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    border: 3px solid #000;
+    margin: 10px;
+    min-height: 180px;
+}
+
+/* D-Pad */
+.d-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.d-pad-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.d-pad-center {
+    width: 60px;
+    height: 60px;
+    background: #444;
+    border-radius: 50%;
+    border: 3px solid #000;
+}
+
+.control-btn {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(145deg, #666, #444);
+    border: 4px solid #000;
+    border-radius: 15px;
+    font-size: 28px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s;
+    touch-action: manipulation;
+}
+
+.control-btn:active {
+    background: linear-gradient(145deg, #444, #222);
+    transform: translateY(2px);
+}
+
+.up-btn {
+    border-top-color: #ff6b9d;
+}
+
+.down-btn {
+    border-bottom-color: #ff6b9d;
+}
+
+.left-btn {
+    border-left-color: #ff6b9d;
+}
+
+.right-btn {
+    border-right-color: #ff6b9d;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.action-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px solid #000;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.1s;
+    touch-action: manipulation;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.a-btn {
+    background: linear-gradient(145deg, #ff3d7f, #ff0066);
+    box-shadow: 0 6px 0 #990033;
+}
+
+.b-btn {
+    background: linear-gradient(145deg, #4a90e2, #1c6cc9);
+    box-shadow: 0 6px 0 #0d4d8c;
+}
+
+/* Clues Panel */
+.clues-panel {
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    flex-shrink: 0;
+}
+
+.clues-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.panel-title {
+    color: #ffde00;
+    font-size: 16px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.answer-btn {
+    background: linear-gradient(145deg, #43e97b, #38f9d7);
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.clues-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 40px;
+}
+
+.clue-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #ff6b9d;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #2d2d5a, #1a1a2e);
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 90%;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.pixel-border {
+    border: 5px solid #000;
+    box-shadow: 0 0 0 3px #ff6b9d,
+                8px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ff6b9d;
+}
+
+.modal-title {
+    color: #ffde00;
+    font-size: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.close-btn {
+    background: #ff3d7f;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+}
+
+/* Pokémon Catch Modal */
+.pokemon-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.pokemon-name {
+    color: #ffde00;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.catch-message {
+    color: #a9a9ff;
+    font-size: 14px;
+}
+
+.clue-reveal {
+    background: rgba(255, 107, 157, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px dashed #ff6b9d;
+}
+
+.clue-label {
+    color: #ff6b9d;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.clue-text {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* Answer Modal */
+.answer-modal {
+    max-width: 350px;
+}
+
+.instruction {
+    color: #ccc;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.clues-hint {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 2px solid #ffde00;
+    font-size: 14px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.pixel-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    border: 3px solid #000;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: white;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.pixel-input:focus {
+    outline: none;
+    border-color: #ff6b9d;
+}
+
+.input-hint {
+    color: #666;
+    font-size: 11px;
+    text-align: center;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-actions .pixel-button {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    background: linear-gradient(145deg, #43e97b, #38f9d7);
+}
+
+.hint-btn {
+    background: linear-gradient(145deg, #ff8e53, #ff6b9d);
+}
+
+.feedback {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.feedback.error {
+    background: rgba(255, 59, 48, 0.2);
+    color: #ff3b30;
+    border: 2px solid #ff3b30;
+}
+
+.feedback.success {
+    background: rgba(52, 199, 89, 0.2);
+    color: #34c759;
+    border: 2px solid #34c759;
+}
+
+/* Penalty Modal */
+.penalty-modal {
+    max-width: 350px;
+}
+
+.penalty-message {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.penalty-message p {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.penalty-task {
+    background: rgba(255, 59, 48, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ff3b30;
+    margin-bottom: 20px;
+}
+
+.penalty-text {
+    font-size: 18px;
+    color: #ffde00;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.penalty-hint {
+    color: #ccc;
+    font-size: 12px;
+    text-align: center;
+}
+
+.penalty-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.penalty-btn {
+    background: linear-gradient(145deg, #ff3b30, #ff1c00);
+    padding: 12px;
+}
+
+.skip-btn {
+    background: linear-gradient(145deg, #666, #444);
+    padding: 12px;
+}
+
+/* Success Modal */
+.success-modal {
+    max-width: 350px;
+}
+
+.success-message {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-text {
+    font-size: 18px;
+    color: #ffde00;
+    margin-bottom: 8px;
+}
+
+.romance-text {
+    font-size: 20px;
+    color: #ff6b9d;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.room-summary {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.next-room {
+    color: #a9a9ff;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.next-btn {
+    background: linear-gradient(145deg, #ff6b9d, #ff3d7f);
+    font-size: 16px;
+    padding: 15px;
+}
+
+/* Victory Screen */
+.victory-modal {
+    max-width: 350px;
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1f);
+}
+
+.victory-content {
+    text-align: center;
+}
+
+.victory-title {
+    font-size: 24px;
+    color: #ffde00;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.victory-message p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.final-message {
+    font-size: 18px;
+    color: #ff6b9d;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.victory-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    color: #a9a9ff;
+    font-size: 14px;
+}
+
+.stat-value {
+    font-size: 20px;
+    color: #ffde00;
+    font-weight: bold;
+}
+
+.real-gift-reveal {
+    background: rgba(255, 107, 157, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px dashed #ff6b9d;
+    margin: 20px 0;
+}
+
+.gift-title {
+    color: #ffde00;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.gift-message {
+    font-size: 14px;
+    color: white;
+    line-height: 1.5;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    .agreement-content.popup-style {
+        padding: 20px;
+    }
+    
+    .agreement-title {
+        font-size: 20px;
+    }
+    
+    .agreement-message {
+        font-size: 14px;
+    }
+    
+    .warning-text {
+        font-size: 13px;
+    }
+    
+    .accept-button {
+        font-size: 20px;
+        padding: 15px 30px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        min-height: 100px;
+    }
+    
+    .controls-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+        min-height: 200px;
+    }
+    
+    .control-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+    }
+    
+    .action-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+    }
+    
+    .d-pad-center {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .modal-content {
+        padding: 15px;
+    }
+}
+
+@media (max-height: 700px) {
+    .game-header {
+        min-height: 70px;
+        padding: 8px;
+    }
+    
+    .controls-container {
+        min-height: 160px;
+        padding: 8px;
+    }
+    
+    .control-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+    }
+    
+    .action-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 22px;
+    }
+    
+    .clues-panel {
+        padding: 10px;
+        margin: 5px;
+    }
+}

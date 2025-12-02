@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pokémon Romance Adventure 💖 - Birthday Special</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+</head>
+<body>
+    <!-- Agreement Screen (FIRST SCREEN) -->
+    <div id="agreement-screen" class="screen active">
+        <div class="agreement-content popup-style">
+            <div class="agreement-text popup-message">
+                <div class="popup-header">
+                    <div class="popup-icon">💖</div>
+                    <h1 class="agreement-title">⚠️ Birthday Adventure Agreement ⚠️</h1>
+                </div>
+                
+                <div class="message-content">
+                    <p class="agreement-message">
+                        This game contains romantic surprises, punishments, rewards, cute Pokémon, and special memories 
+                        made just for you! By clicking "I Accept", you agree to embark on this 
+                        birthday adventure with an open heart! 💖
+                    </p>
+                    
+                    <div class="agreement-warning warning-box">
+                        <p class="warning-title">🔥 WARNING 🔥</p>
+                        <p class="warning-text">
+                            May cause excessive smiling, warm feelings, need of toys, being dominated, 
+                            being led to new dimensions and desire to hug, kiss your boyfriend!(HUSBAND) 😈
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="agreement-buttons">
+                <button id="accept-btn" class="pixel-button accept-button">
+                    I ACCEPT 😈
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen (SECOND SCREEN) -->
+    <div id="loading-screen" class="screen hidden">
+        <div class="loading-content">
+            <div class="pixel-heart">💖</div>
+            <h1 class="pixel-title">Pokémon Romance Adventure</h1>
+            <p class="loading-subtitle">A birthday surprise for my love</p>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="loading-progress"></div>
+                </div>
+                <div class="progress-text" id="loading-text">Loading sweet memories...</div>
+            </div>
+            <button id="start-game" class="pixel-button start-button">START ADVENTURE</button>
+        </div>
+    </div>
+
+    <!-- Main Game Screen (THIRD SCREEN) -->
+    <div id="game-screen" class="screen hidden">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="room-info">
+                <div class="room-number">
+                    <span class="label">ROOM</span>
+                    <span id="current-room" class="value">1</span>
+                    <span class="separator">/</span>
+                    <span class="value">5</span>
+                </div>
+                <div id="room-title" class="room-title">THE START</div>
+            </div>
+            
+            <div class="pokemon-tracker">
+                <div class="pokemon-count">
+                    <span class="label">POKÉMON CAUGHT</span>
+                    <span id="caught-count" class="value">0</span>
+                    <span class="separator">/</span>
+                    <span id="total-pokemon" class="value">6</span>
+                </div>
+                <div class="clues-count">
+                    <span class="label">CLUES</span>
+                    <span id="clues-count" class="value">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Map Container -->
+            <div class="map-container">
+                <div id="game-map" class="game-map">
+                    <img id="map-image" src="" alt="Room Map" class="map-image">
+                    
+                    <!-- Player -->
+                    <div id="player" class="player">
+                        <img src="sprites/player.png" alt="Player" class="player-sprite">
+                    </div>
+                    
+                    <!-- Pokémon will be added here dynamically -->
+                    <div id="pokemon-container"></div>
+                </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="controls-container">
+                <div class="d-pad">
+                    <div class="d-pad-row">
+                        <button class="control-btn up-btn" id="btn-up" aria-label="Move up">
+                            ↑
+                        </button>
+                    </div>
+                    <div class="d-pad-row">
+                        <button class="control-btn left-btn" id="btn-left" aria-label="Move left">
+                            ←
+                        </button>
+                        <div class="d-pad-center"></div>
+                        <button class="control-btn right-btn" id="btn-right" aria-label="Move right">
+                            →
+                        </button>
+                    </div>
+                    <div class="d-pad-row">
+                        <button class="control-btn down-btn" id="btn-down" aria-label="Move down">
+                            ↓
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn a-btn" id="btn-a">A</button>
+                    <button class="action-btn b-btn" id="btn-b">B</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clues Panel -->
+        <div class="clues-panel">
+            <div class="clues-header">
+                <h3 class="panel-title">Collected Clues</h3>
+                <button class="answer-btn pixel-button" id="btn-answer">ANSWER</button>
+            </div>
+            <div id="clues-list" class="clues-list">
+                <!-- Clues will appear here -->
+            </div>
+        </div>
+
+        <!-- Pokémon Catch Modal -->
+        <div id="catch-modal" class="modal hidden">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <h3 class="modal-title">Pokémon Caught!</h3>
+                    <button class="close-btn" id="close-catch">OK</button>
+                </div>
+                <div class="modal-body">
+                    <div class="pokemon-display">
+                        <img id="caught-pokemon-img" src="" alt="Pokémon" class="pokemon-sprite">
+                        <div class="pokemon-info">
+                            <h4 id="caught-pokemon-name" class="pokemon-name">Pikachu</h4>
+                            <p id="caught-message" class="catch-message">You found a clue!</p>
+                        </div>
+                    </div>
+                    <div class="clue-reveal">
+                        <div class="clue-label">CLUE REVEALED:</div>
+                        <div id="clue-text" class="clue-text">FIRST</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Answer Modal -->
+        <div id="answer-modal" class="modal hidden">
+            <div class="modal-content pixel-border answer-modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Room Escape Code</h3>
+                    <button class="close-btn" id="close-answer">✕</button>
+                </div>
+                <div class="modal-body">
+                    <p class="instruction">Combine all 6 clues to unlock next room:</p>
+                    <div id="current-clues-hint" class="clues-hint"></div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="room-answer" class="pixel-input" 
+                               placeholder="Enter the code..." 
+                               autocapitalize="characters"
+                               autocomplete="off">
+                        <div class="input-hint">(Can be words, numbers, or combination)</div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button id="submit-answer" class="pixel-button submit-btn">SUBMIT</button>
+                        <button id="penalty-hint" class="pixel-button hint-btn">PENALTY HINT</button>
+                    </div>
+                    
+                    <div id="answer-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Penalty Modal -->
+        <div id="penalty-modal" class="modal hidden">
+            <div class="modal-content pixel-border penalty-modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Wrong Answer! 😈</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="penalty-message">
+                        <p>Oopsies you got this wrong!</p>
+                        <p>Complete this penalty for a hint from Daddy:</p>
+                    </div>
+                    
+                    <div class="penalty-task">
+                        <div id="penalty-text" class="penalty-text">
+                            OBEY WHAT DADDY SAYS TO YOU!
+                        </div>
+                        <div class="penalty-hint">
+                            After completing, you'll get a hint about the answer.
+                        </div>
+                    </div>
+                    
+                    <div class="penalty-actions">
+                        <button id="complete-penalty" class="pixel-button penalty-btn">
+                            I DID THE PENALTY
+                        </button>
+                        <button id="skip-penalty" class="pixel-button skip-btn">
+                            TRY AGAIN WITHOUT HINT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-content pixel-border success-modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Room Complete! 💖</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="success-message">
+                        <p class="success-text">Olee you got this right, Okay okay honey, make me do whatever you want...</p>
+                        <p class="romance-text">I am your slave today! 💕</p>
+                    </div>
+                    
+                    <div class="room-summary">
+                        <p>You collected all clues in Room <span id="completed-room">1</span>!</p>
+                        <p class="next-room">You have a free wish to make, and also Get ready for the next room...</p>
+                    </div>
+                    
+                    <div class="success-actions">
+                        <button id="next-room-btn" class="pixel-button next-btn">
+                            GO TO ROOM <span id="next-room-num">2</span> →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Victory Screen -->
+        <div id="victory-screen" class="modal hidden">
+            <div class="modal-content pixel-border victory-modal">
+                <div class="modal-body">
+                    <div class="victory-content">
+                        <div class="victory-title">🎉 HAPPY BIRTHDAY MY LOVE! 🎂</div>
+                        <div class="victory-message">
+                            <p>You've completed all 5 rooms!</p>
+                            <p>You caught all 30 Pokémon and solved every clue!</p>
+                            <p class="final-message">You're the very best, like no one ever was! 💖</p>
+                        </div>
+                        
+                        <div class="victory-stats">
+                            <div class="stat">
+                                <span class="stat-label">Rooms Completed:</span>
+                                <span class="stat-value">5/5</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Pokémon Caught:</span>
+                                <span class="stat-value">30/30</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Total Clues:</span>
+                                <span class="stat-value">30</span>
+                            </div>
+                        </div>
+                        
+                        <div class="real-gift-reveal">
+                            <p class="gift-title">Your Real Birthday Gift:</p>
+                            <p id="final-gift-message" class="gift-message">
+                                [A LIFE WITH SOMEONE WHO IS OBSESSED WITH YOU, CRAVES FOR YOU. AND WILL FOREVER LOVE YOU AND PUT ALL THE EFFORTS YOU COULD EVER IMAGINE.]
+                            </p>
+                        </div>
+                        
+                        <div class="victory-actions">
+                            <button id="restart-game" class="pixel-button">
+                                PLAY AGAIN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="pokemon-data.js"></script>
+    <script src="levels.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
