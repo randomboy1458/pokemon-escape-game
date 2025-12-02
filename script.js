@@ -228,6 +228,11 @@ class PokemonEscapeRoom {
     handleKeyPress(e) {
         if (!this.gameLoaded) return;
         
+        // FIX: Allow typing in answer modal
+        if (!this.elements.answerModal.classList.contains('hidden')) {
+            return; // Let user type normally in answer input
+        }
+        
         switch(e.key) {
             case 'ArrowUp':
             case 'w':
@@ -254,6 +259,9 @@ class PokemonEscapeRoom {
                 e.preventDefault();
                 break;
             case ' ':
+                this.interact();
+                e.preventDefault();
+                break;
             case 'Enter':
                 this.interact();
                 e.preventDefault();
