@@ -1562,3 +1562,25 @@ body {
         right: 12px;
     }
 }
+
+/* FORCE HIDE CONTROLS WHEN JOYSTICK IS ACTIVE */
+#game-screen.active .controls-container {
+    display: none !important;
+}
+
+#game-screen.active .game-header {
+    display: none !important;
+}
+
+#game-screen.active .clues-panel {
+    display: none !important;
+}
+
+/* FORCE SHOW JOYSTICK */
+#game-screen.active .joystick-container {
+    display: block !important;
+}
+
+#game-screen.active .p-button-container {
+    display: block !important;
+}
