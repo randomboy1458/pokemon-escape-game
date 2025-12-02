@@ -307,6 +307,7 @@ class PokemonEscapeRoom {
             baseRect = joystickBase.getBoundingClientRect();
             startX = baseRect.left + baseRect.width / 2;
             startY = baseRect.top + baseRect.height / 2;
+            updateJoystick(clientX, clientY); // FIXED: This line was missing
         };
         
         // Update joystick position and movement
@@ -329,7 +330,7 @@ class PokemonEscapeRoom {
             
             // ===== CHANGE THRESHOLD HERE =====
             // Higher number = less sensitive, Lower number = more sensitive
-            const threshold = 35; // CHANGE THIS VALUE (try 20, 25, or 30)
+            const threshold = 20; // CHANGE THIS VALUE (try 20, 25, or 30)
             // ===== END CHANGE THRESHOLD =====
             
             let direction = null;
