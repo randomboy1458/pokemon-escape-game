@@ -1205,25 +1205,25 @@ body {
 
 /* ===== JOYSTICK SYSTEM ===== */
 /* Only show on game screen */
-.game-screen.active .joystick-container {
-    display: block;
+#game-screen.active .joystick-container {
+    display: block !important;
 }
 
-.game-screen.active .p-button-container {
-    display: block;
+#game-screen.active .p-button-container {
+    display: block !important;
 }
 
 /* Hide original UI when joystick is active */
-.game-screen.active .game-header {
-    display: none;
+#game-screen.active .game-header {
+    display: none !important;
 }
 
-.game-screen.active .controls-container {
-    display: none;
+#game-screen.active .controls-container {
+    display: none !important;
 }
 
-.game-screen.active .clues-panel {
-    display: none;
+#game-screen.active .clues-panel {
+    display: none !important;
 }
 
 /* Joystick Container */
@@ -1561,26 +1561,4 @@ body {
         top: 12px;
         right: 12px;
     }
-}
-
-/* FORCE HIDE CONTROLS WHEN JOYSTICK IS ACTIVE */
-#game-screen.active .controls-container {
-    display: none !important;
-}
-
-#game-screen.active .game-header {
-    display: none !important;
-}
-
-#game-screen.active .clues-panel {
-    display: none !important;
-}
-
-/* FORCE SHOW JOYSTICK */
-#game-screen.active .joystick-container {
-    display: block !important;
-}
-
-#game-screen.active .p-button-container {
-    display: block !important;
 }
