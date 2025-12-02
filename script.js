@@ -298,6 +298,8 @@ class PokemonEscapeRoom {
         let isDragging = false;
         let startX, startY;
         let baseRect;
+        let lastMoveTime = 0;
+        const moveDelay = 50; // milliseconds between moves
         
         // Touch/Click start
         const startDrag = (clientX, clientY) => {
@@ -305,7 +307,6 @@ class PokemonEscapeRoom {
             baseRect = joystickBase.getBoundingClientRect();
             startX = baseRect.left + baseRect.width / 2;
             startY = baseRect.top + baseRect.height / 2;
-            updateJoystick(clientX, clientY);
         };
         
         // Update joystick position and movement
@@ -326,19 +327,28 @@ class PokemonEscapeRoom {
             
             joystickHandle.style.transform = `translate(${joyX}px, ${joyY}px)`;
             
-            // Determine movement direction
-            const threshold = 15;
+            // ===== CHANGE THRESHOLD HERE =====
+            // Higher number = less sensitive, Lower number = more sensitive
+            const threshold = 35; // CHANGE THIS VALUE (try 20, 25, or 30)
+            // ===== END CHANGE THRESHOLD =====
+            
             let direction = null;
             
+            // Only move if joystick is pushed significantly
             if (Math.abs(joyX) > threshold || Math.abs(joyY) > threshold) {
+                // Check which axis has stronger movement
                 if (Math.abs(joyX) > Math.abs(joyY)) {
                     direction = joyX > 0 ? 'right' : 'left';
                 } else {
                     direction = joyY > 0 ? 'down' : 'up';
                 }
                 
-                // Move player continuously while dragging
-                this.movePlayer(direction);
+                // Throttle movement to prevent too fast movement
+                const now = Date.now();
+                if (now - lastMoveTime > moveDelay) {
+                    this.movePlayer(direction);
+                    lastMoveTime = now;
+                }
             }
         };
         
@@ -347,6 +357,7 @@ class PokemonEscapeRoom {
             if (isDragging) {
                 isDragging = false;
                 joystickHandle.style.transform = 'translate(0, 0)';
+                lastMoveTime = 0;
             }
         };
         
@@ -356,7 +367,7 @@ class PokemonEscapeRoom {
             startDrag(e.touches[0].clientX, e.touches[0].clientY);
         });
         
-        document.addEventListener('touchmove', (e) => {
+        joystickHandle.addEventListener('touchmove', (e) => {
             if (isDragging) {
                 e.preventDefault();
                 updateJoystick(e.touches[0].clientX, e.touches[0].clientY);
