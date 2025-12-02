@@ -1075,3 +1075,130 @@ body {
         border-width: 3px;
     }
 }
+
+/* ===== PORTRAIT MODE ONLY - PHONE FIX ===== */
+@media (max-width: 768px) {
+    /* Stack everything vertically */
+    .game-screen {
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
+    
+    /* Make header smaller */
+    .game-header {
+        min-height: 50px;
+        padding: 5px 10px;
+    }
+    
+    .value {
+        font-size: 14px;
+    }
+    
+    .room-title {
+        font-size: 11px;
+        margin-top: 3px;
+    }
+    
+    /* Map takes 50% of screen */
+    .map-container {
+        height: 50vh !important;
+        min-height: 50vh !important;
+        width: calc(100% - 10px);
+    }
+    
+    /* Controls take 30% */
+    .controls-container {
+        height: 30vh !important;
+        min-height: 30vh !important;
+        flex-direction: column;
+        gap: 10px;
+        margin: 5px;
+        padding: 8px;
+    }
+    
+    /* Action buttons on top */
+    .action-buttons {
+        order: -1;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    /* D-pad below */
+    .d-pad {
+        order: 1;
+    }
+    
+    /* Make buttons smaller */
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .action-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+    
+    /* Smaller player and Pokémon */
+    .player {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .pokemon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Clues panel at bottom */
+    .clues-panel {
+        height: 15vh !important;
+        min-height: 15vh !important;
+        margin: 5px;
+        padding: 5px;
+    }
+    
+    .clues-list {
+        max-height: 50px;
+        overflow-y: auto;
+    }
+    
+    .clue-item {
+        font-size: 10px;
+        padding: 4px 6px;
+        min-width: calc(33% - 4px);
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .action-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .player {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .pokemon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .value {
+        font-size: 12px;
+    }
+}
