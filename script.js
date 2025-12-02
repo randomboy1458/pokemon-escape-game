@@ -98,7 +98,18 @@ class PokemonEscapeRoom {
             
             // Victory Screen
             finalGiftMessage: document.getElementById('final-gift-message'),
-            restartGame: document.getElementById('restart-game')
+            restartGame: document.getElementById('restart-game'),
+            
+            // ===== JOYSTICK ELEMENTS =====
+            joystickHandle: document.getElementById('joystickHandle'),
+            pButton: document.getElementById('pButton'),
+            gamePanel: document.getElementById('gamePanel'),
+            closePanel: document.getElementById('closePanel'),
+            panelAnswerBtn: document.getElementById('panelAnswerBtn'),
+            panelCluesList: document.getElementById('panelCluesList'),
+            panelCaughtCount: document.getElementById('panelCaughtCount'),
+            panelTotalPokemon: document.getElementById('panelTotalPokemon'),
+            panelRoomNumber: document.getElementById('panelRoomNumber')
         };
     }
     
@@ -200,10 +211,14 @@ class PokemonEscapeRoom {
         
         // Show game screen
         this.elements.gameScreen.classList.remove('hidden');
+        this.elements.gameScreen.classList.add('active'); // Add active class for joystick
         
         // Load first room
         this.loadRoom(this.currentRoom);
         this.gameLoaded = true;
+        
+        // Setup joystick system
+        this.setupJoystick();
         
         // Log for debugging
         console.log("🎮 Game started! Room 1 loaded.");
@@ -269,6 +284,146 @@ class PokemonEscapeRoom {
         }
     }
     
+    // ===== JOYSTICK SYSTEM =====
+    setupJoystick() {
+        const joystickHandle = this.elements.joystickHandle;
+        const joystickBase = document.querySelector('.joystick-base');
+        const pButton = this.elements.pButton;
+        const gamePanel = this.elements.gamePanel;
+        const closePanel = this.elements.closePanel;
+        const panelAnswerBtn = this.elements.panelAnswerBtn;
+        
+        if (!joystickHandle) return;
+        
+        let isDragging = false;
+        let startX, startY;
+        let baseRect;
+        
+        // Touch/Click start
+        const startDrag = (clientX, clientY) => {
+            isDragging = true;
+            baseRect = joystickBase.getBoundingClientRect();
+            startX = baseRect.left + baseRect.width / 2;
+            startY = baseRect.top + baseRect.height / 2;
+            updateJoystick(clientX, clientY);
+        };
+        
+        // Update joystick position and movement
+        const updateJoystick = (clientX, clientY) => {
+            if (!isDragging) return;
+            
+            const deltaX = clientX - startX;
+            const deltaY = clientY - startY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const maxDistance = 25;
+            
+            // Limit joystick movement
+            const angle = Math.atan2(deltaY, deltaX);
+            const limitedDistance = Math.min(distance, maxDistance);
+            
+            const joyX = Math.cos(angle) * limitedDistance;
+            const joyY = Math.sin(angle) * limitedDistance;
+            
+            joystickHandle.style.transform = `translate(${joyX}px, ${joyY}px)`;
+            
+            // Determine movement direction
+            const threshold = 15;
+            let direction = null;
+            
+            if (Math.abs(joyX) > threshold || Math.abs(joyY) > threshold) {
+                if (Math.abs(joyX) > Math.abs(joyY)) {
+                    direction = joyX > 0 ? 'right' : 'left';
+                } else {
+                    direction = joyY > 0 ? 'down' : 'up';
+                }
+                
+                // Move player continuously while dragging
+                this.movePlayer(direction);
+            }
+        };
+        
+        // Stop dragging
+        const stopDrag = () => {
+            if (isDragging) {
+                isDragging = false;
+                joystickHandle.style.transform = 'translate(0, 0)';
+            }
+        };
+        
+        // Touch events
+        joystickHandle.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                updateJoystick(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchend', stopDrag);
+        document.addEventListener('touchcancel', stopDrag);
+        
+        // Mouse events for testing
+        joystickHandle.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startDrag(e.clientX, e.clientY);
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                updateJoystick(e.clientX, e.clientY);
+            }
+        });
+        
+        document.addEventListener('mouseup', stopDrag);
+        
+        // P-Button click
+        pButton.addEventListener('click', () => {
+            this.showGamePanel();
+        });
+        
+        // Close panel
+        closePanel.addEventListener('click', () => {
+            this.hideGamePanel();
+        });
+        
+        // Answer button in panel
+        panelAnswerBtn.addEventListener('click', () => {
+            this.showAnswerModal();
+            this.hideGamePanel();
+        });
+    }
+    
+    showGamePanel() {
+        const room = LEVELS[this.currentRoom - 1];
+        
+        // Update panel info
+        this.elements.panelCaughtCount.textContent = this.caughtPokemon.length;
+        this.elements.panelTotalPokemon.textContent = room.pokemon.length;
+        this.elements.panelRoomNumber.textContent = this.currentRoom;
+        
+        // Update clues in panel
+        this.elements.panelCluesList.innerHTML = '';
+        this.collectedClues.forEach(clue => {
+            const clueElement = document.createElement('div');
+            clueElement.className = 'panel-clue-item';
+            clueElement.textContent = clue;
+            this.elements.panelCluesList.appendChild(clueElement);
+        });
+        
+        // Show panel
+        this.elements.gamePanel.classList.add('active');
+    }
+    
+    hideGamePanel() {
+        this.elements.gamePanel.classList.remove('active');
+    }
+    // ===== END JOYSTICK SYSTEM =====
+    
     loadRoom(roomNumber) {
         const room = LEVELS[roomNumber - 1];
         
@@ -277,6 +432,9 @@ class PokemonEscapeRoom {
         this.collectedClues = [];
         this.player.x = 50;
         this.player.y = 50;
+        
+        // Hide game panel
+        this.hideGamePanel();
         
         // Update UI
         this.elements.currentRoom.textContent = roomNumber;

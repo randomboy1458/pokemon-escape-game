@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <!-- Control Buttons -->
+            <!-- Control Buttons (Hidden when joystick is active) -->
             <div class="controls-container">
                 <div class="d-pad">
                     <div class="d-pad-row">
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <!-- Clues Panel -->
+        <!-- Clues Panel (Hidden when joystick is active) -->
         <div class="clues-panel">
             <div class="clues-header">
                 <h3 class="panel-title">Collected Clues</h3>
@@ -144,6 +144,45 @@
                 <!-- Clues will appear here -->
             </div>
         </div>
+
+        <!-- ===== JOYSTICK SYSTEM ===== -->
+        <!-- Joystick (only shows in game screen) -->
+        <div class="joystick-container">
+            <div class="joystick-base"></div>
+            <div class="joystick-handle" id="joystickHandle"></div>
+        </div>
+
+        <!-- P-Button (only shows in game screen) -->
+        <div class="p-button-container">
+            <div class="p-button" id="pButton">P</div>
+        </div>
+
+        <!-- Game Panel (hidden by default) -->
+        <div class="game-panel" id="gamePanel">
+            <div class="panel-header">
+                <h2 class="panel-title">Game Menu</h2>
+                <button class="close-panel" id="closePanel">✕</button>
+            </div>
+            
+            <div class="panel-content">
+                <div class="panel-clues">
+                    <h3 class="panel-clues-title">Your Clues:</h3>
+                    <div class="panel-clues-list" id="panelCluesList">
+                        <!-- Clues will appear here -->
+                    </div>
+                </div>
+                
+                <button class="panel-answer-btn" id="panelAnswerBtn">
+                    Answer Room Puzzle
+                </button>
+                
+                <div class="caught-info">
+                    <p>Pokémon Caught: <span id="panelCaughtCount">0</span>/<span id="panelTotalPokemon">0</span></p>
+                    <p>Current Room: <span id="panelRoomNumber">1</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- ===== END JOYSTICK SYSTEM ===== -->
 
         <!-- Pokémon Catch Modal -->
         <div id="catch-modal" class="modal hidden">
