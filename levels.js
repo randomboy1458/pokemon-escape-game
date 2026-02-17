@@ -63,7 +63,7 @@ const LEVELS = [
         answer: "NO GOING BACK FROM THIS",
         pokemon: generateRoomPokemon(
             [1, 2, 3, 4, 5], // 5 Pokémon IDs (CHANGED FROM 6 TO 5)
-            ["Pikachu is confused whats opposite of yes?!","Charizard got mad and is going", "Squirtle comes back home", "Bulbasaur also comes From a grass type origin", "Emboar sang a song on This special moment"], // 5 clues (REMOVED "NOW")
+            ["opposite of front"], // 5 clues (REMOVED "NOW")
             [
                 "Pikachu is confused whats opposite of yes?!",
                 "Charizard got mad and is going",

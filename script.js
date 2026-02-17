@@ -1,6 +1,3 @@
-// Final gift message
-const FINAL_GIFT_MESSAGE = "A LIFE WITH SOMEONE WHO IS OBSESSED WITH YOU, CRAVES FOR YOU. AND WILL FOREVER LOVE YOU AND PUT ALL THE EFFORTS YOU COULD EVER IMAGINE.";
-
 // script.js - Complete Game Logic
 class PokemonEscapeRoom {
     constructor() {
@@ -9,7 +6,7 @@ class PokemonEscapeRoom {
         this.player = {
             x: 50,
             y: 50,
-            speed: 1.8 // REDUCED from 2.5 to 1.8 for slower movement
+            speed: 2.5
         };
         this.caughtPokemon = [];
         this.collectedClues = [];
@@ -302,7 +299,7 @@ class PokemonEscapeRoom {
         let startX, startY;
         let baseRect;
         let lastMoveTime = 0;
-        const moveDelay = 120; // INCREASED from 50 to 120ms for slower joystick movement
+        const moveDelay = 50; // milliseconds between moves
         
         // Touch/Click start
         const startDrag = (clientX, clientY) => {
@@ -310,7 +307,7 @@ class PokemonEscapeRoom {
             baseRect = joystickBase.getBoundingClientRect();
             startX = baseRect.left + baseRect.width / 2;
             startY = baseRect.top + baseRect.height / 2;
-            updateJoystick(clientX, clientY);
+            updateJoystick(clientX, clientY); // FIXED: This line was missing
         };
         
         // Update joystick position and movement
@@ -320,7 +317,7 @@ class PokemonEscapeRoom {
             const deltaX = clientX - startX;
             const deltaY = clientY - startY;
             const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            const maxDistance = 30; // INCREASED for more joystick travel
+            const maxDistance = 25;
             
             // Limit joystick movement
             const angle = Math.atan2(deltaY, deltaX);
@@ -331,10 +328,10 @@ class PokemonEscapeRoom {
             
             joystickHandle.style.transform = `translate(${joyX}px, ${joyY}px)`;
             
-            // ===== ADJUSTED THRESHOLD =====
+            // ===== CHANGE THRESHOLD HERE =====
             // Higher number = less sensitive, Lower number = more sensitive
-            const threshold = 18; // ADJUSTED from 20 to 18 for better balance with slower movement
-            // ===== END THRESHOLD =====
+            const threshold = 20; // CHANGE THIS VALUE (try 20, 25, or 30)
+            // ===== END CHANGE THRESHOLD =====
             
             let direction = null;
             
@@ -583,12 +580,10 @@ class PokemonEscapeRoom {
         this.elements.caughtCount.textContent = this.caughtPokemon.length;
         this.elements.cluesCount.textContent = this.collectedClues.length;
         
-        // Update Pokémon appearance - this makes it vanish completely
+        // Update Pokémon appearance
         const pokemonElement = document.getElementById(`pokemon-${index}`);
-        if (pokemonElement) {
-            pokemonElement.classList.remove('hidden');
-            pokemonElement.classList.add('caught');
-        }
+        pokemonElement.classList.remove('hidden');
+        pokemonElement.classList.add('caught');
         
         // Add clue to display
         this.addClueToDisplay(pokemon.clue);
