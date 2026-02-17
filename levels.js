@@ -143,7 +143,7 @@ const LEVELS = [
         answer: "I WANT TO BE YOURS",
         pokemon: generateRoomPokemon(
             [21, 22, 23, 24, 25], // 5 Pokémon IDs (ADJUSTED)
-            ["You are mine"], // 5 clues (REMOVED "FOREVER")
+            ["Yada Yada"], // 5 clues (REMOVED "FOREVER")
             [
                 "I and You caught Xerneas on stream",
                 "You want this shiny amaura right?",
