@@ -63,7 +63,7 @@ const LEVELS = [
         answer: "NO GOING BACK FROM THIS",
         pokemon: generateRoomPokemon(
             [1, 2, 3, 4, 5], // 5 Pokémon IDs (CHANGED FROM 6 TO 5)
-            ["NO", "GOING", "BACK", "FROM", "THIS"], // 5 clues (REMOVED "NOW")
+            ["opposite of front"], // 5 clues (REMOVED "NOW")
             [
                 "Pikachu is confused whats opposite of yes?!",
                 "Charizard got mad and is going",
@@ -83,7 +83,7 @@ const LEVELS = [
         answer: "WHY AM I PINK COLORED",
         pokemon: generateRoomPokemon(
             [6, 7, 8, 9, 10], // 5 Pokémon IDs (ADJUSTED)
-            ["WHY", "AM", "I", "PINK", "COLORED"], // 5 clues (REMOVED "TONIGHT")
+            ["red + white"], // 5 clues (REMOVED "TONIGHT")
             [
                 "You step on Meowth's tail and it screams WHY!!!!",
                 "AM too sick of eevee",
@@ -103,7 +103,7 @@ const LEVELS = [
         answer: "THANK YOU FOR CHOOSING ME",
         pokemon: generateRoomPokemon(
             [11, 12, 13, 14, 15], // 5 Pokémon IDs (ADJUSTED)
-            ["THANK", "YOU", "FOR", "CHOOSING", "ME"], // 5 clues (REMOVED "ALWAYS")
+            ["Glad"], // 5 clues (REMOVED "ALWAYS")
             [
                 "thank you amor for not skipping psyduck",
                 "Ana says, LUCARIO i choose YOU, to take down Growlithe",
@@ -123,7 +123,7 @@ const LEVELS = [
         answer: "I WILL FOREVER LOVE YOU",
         pokemon: generateRoomPokemon(
             [16, 17, 18, 19, 20], // 5 Pokémon IDs (ADJUSTED)
-            ["I", "WILL", "FOREVER", "LOVE", "YOU"], // 5 clues (REMOVED "MYLOVE")
+            ["infinite"], // 5 clues (REMOVED "MYLOVE")
             [
                 "I AND Fuecoco heard your promise!",
                 "Gastly WItnessed IllNESS for eternity!",
@@ -143,7 +143,7 @@ const LEVELS = [
         answer: "I WANT TO BE YOURS",
         pokemon: generateRoomPokemon(
             [21, 22, 23, 24, 25], // 5 Pokémon IDs (ADJUSTED)
-            ["I", "WANT", "TO", "BE", "YOURS"], // 5 clues (REMOVED "FOREVER")
+            ["You are mine"], // 5 clues (REMOVED "FOREVER")
             [
                 "I and You caught Xerneas on stream",
                 "You want this shiny amaura right?",
